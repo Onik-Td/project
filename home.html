@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Onik Td</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+
+
+
+
+        .fa {
+  padding: 5px;
+font-size: 18px;
+width: 33px;
+text-align: center;
+text-decoration: none;
+border-radius: 5px;
+}
+
+.fa:hover {
+    opacity: 0.9;
+}
+
+.fa-youtube {
+  background: #f0efef;
+  color: rgb(251, 9, 9); 
+}
+.fa-youtube:hover {
+  background: rgb(6, 244, 121);
+  color: rgb(227, 10, 10);
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.text {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+
+  
+  
+  color: rgb(15, 1, 1);
+  font-weight: bold;
+  font-size: 20px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 700px;
+  padding: 100px;
+  text-align: center;
+}
+
+
+    </style>
+</head>
+<body>
+   
+<nav class="navbar navbar-expand bg-dark navbar-dark">
+
+    <div class="container">
+        <a href="" class=" navbar-brand">Onik Td</a>
+        <ul class="navbar-nav mx-auto">
+            <li><a href="home.html" class="nav-link">Home</a></li>
+            <li><a href="index.html" class="nav-link">About</a></li>
+            <li class="dropdown">
+                <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Garments</a>
+                <ul class="dropdown-menu">
+                    <li><a href="merchandising.html" class="dropdown-item">Merchandising</a></li>
+                    <li><a href="cad.html" class="dropdown-item">CAD</a></li>
+                    <li><a href="Sample.html" class="dropdown-item">Sample</a></li>
+                    <li><a href="Store.html" class="dropdown-item">Store</a></li>
+                    <li><a href="Production Planning.html" class="dropdown-item">Production Planning</a></li>
+                    <li><a href="Cutting.html" class="dropdown-item">Cutting</a></li>
+                    <li><a href="Sewing.html" class="dropdown-item">Sewing</a></li>
+                    <li><a href="Wash.html" class="dropdown-item">Wash</a></li>
+                    <li><a href="Finishing.html" class="dropdown-item">Finishing</a></li>
+                </ul>
+            </li>
+            <li><a href="contact_page.php" class="nav-link">Contact</a></li>
+            <li><a href="career_page.php" class="nav-link">Career</a></li>
+            <li><a href="login.html" class="nav-link">Login</a></li>
+        </ul>
+          
+        <!-- clock start -->
+        <canvas id="canvas" width="100" height="100"
+        style="background-color:#222121">
+        </canvas>
+        
+        <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var radius = canvas.height / 2;
+        ctx.translate(radius, radius);
+        radius = radius * 0.90
+        setInterval(drawClock, 1000);
+        
+        function drawClock() {
+          drawFace(ctx, radius);
+          drawNumbers(ctx, radius);
+          drawTime(ctx, radius);
+        }
+        
+        function drawFace(ctx, radius) {
+          var grad;
+          ctx.beginPath();
+          ctx.arc(0, 0, radius, 0, 2*Math.PI);
+          ctx.fillStyle = 'white';
+          ctx.fill();
+          grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+          grad.addColorStop(0, '#333');
+          grad.addColorStop(0.5, 'white');
+          grad.addColorStop(1, '#333');
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = radius*0.1;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+          ctx.fillStyle = '#333';
+          ctx.fill();
+        }
+        
+        function drawNumbers(ctx, radius) {
+          var ang;
+          var num;
+          ctx.font = radius*0.15 + "px arial";
+          ctx.textBaseline="middle";
+          ctx.textAlign="center";
+          for(num = 1; num < 13; num++){
+            ang = num * Math.PI / 6;
+            ctx.rotate(ang);
+            ctx.translate(0, -radius*0.85);
+            ctx.rotate(-ang);
+            ctx.fillText(num.toString(), 0, 0);
+            ctx.rotate(ang);
+            ctx.translate(0, radius*0.85);
+            ctx.rotate(-ang);
+          }
+        }
+        
+        function drawTime(ctx, radius){
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            //hour
+            hour=hour%12;
+            hour=(hour*Math.PI/6)+
+            (minute*Math.PI/(6*60))+
+            (second*Math.PI/(360*60));
+            drawHand(ctx, hour, radius*0.5, radius*0.07);
+            //minute
+            minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+            drawHand(ctx, minute, radius*0.8, radius*0.07);
+            // second
+            second=(second*Math.PI/30);
+            drawHand(ctx, second, radius*0.9, radius*0.02);
+        }
+        
+        function drawHand(ctx, pos, length, width) {
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.moveTo(0,0);
+            ctx.rotate(pos);
+            ctx.lineTo(0, -length);
+            ctx.stroke();
+            ctx.rotate(-pos);
+        }
+        </script>
+        
+<!-- clock end -->
+
+
+<body onload="initClock()">
+  <!--digital clock start-->
+  <div class="datetime">
+     <div class="time">
+      <span id="hour">00</span>:
+      <span id="minutes">00</span>:
+      <span id="seconds">00</span>
+      <span id="period">AM</span>
+    </div> 
+    <div class="date">
+      <span id="dayname">Day</span>,
+      <span id="month">Month</span>
+      <span id="daynum">00</span>,
+      <span id="year">Year</span>
+    </div>
+  </div>
+  <!--digital clock end-->
+
+  <script type="text/javascript">
+  function updateClock(){
+    var now = new Date();
+    var dname = now.getDay(),
+        mo = now.getMonth(),
+        dnum = now.getDate(),
+        yr = now.getFullYear(),
+        hou = now.getHours(),
+        min = now.getMinutes(),
+        sec = now.getSeconds(),
+        pe = "AM";
+
+        if(hou >= 12){
+          pe = "PM";
+        }
+        if(hou == 0){
+          hou = 12;
+        }
+        if(hou > 12){
+          hou = hou - 12;
+        }
+
+        Number.prototype.pad = function(digits){
+          for(var n = this.toString(); n.length < digits; n = 0 + n);
+          return n;
+        }
+
+        var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+        var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+        var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
+        for(var i = 0; i < ids.length; i++)
+        document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+  }
+
+  function initClock(){
+    updateClock();
+    window.setInterval("updateClock()", 1);
+  }
+  </script>
+
+<!--  -->
+
+    </div>
+</nav>
+<div class="section">
+<img src="Image/landscape.png" alt="" width="100%" height="570">
+<!-- <div class="text">The journey of the RMG sector dates back to 1960, along with the Reaz store
+   in Dhaka. Later in 1973, they changed the store name to Reaz Garments Ltd. In 1978, 
+   for the first time, Reaz Garments started expanding the apparel industry in Bangladesh
+   by exporting 10,000 pieces of shirts in Paris for 13 million francs</div> -->
+
+</div>
+
+
+  
+
+<footer>
+<section class="py-5 bg-success">
+    <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-3">
+                <h3 class="text-align">Address</h3>
+                <div>
+                  <p><i class="fa fa-fw fa-map-marker"></i> Onik Td</p>
+          <p><i class="fa fa-fw fa-phone"></i> 01798982899</p>
+          <p><i class="fa fa-fw fa-envelope"></i>aniktd0@mail.com</p>
+                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <h3 class="text-align">We accept</h3>
+                <div>
+                  <p><i class="fa fa-fw fa-cc-amex"></i> Cash</p>
+                  <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+                
+                </div>
+              </div>
+              <div class="col-md-3">
+                <h3 class="text-align">Employers</h3>
+                <div>
+                  <p></p>
+                  <p></p>
+                  <p></p>
+                 
+                </div>
+              </div>
+              <div class="col-md-3">
+                <h3 class="text-align">Social Media</h3>
+               
+					
+					
+						<i href="https://www.youtube.com/" target="blank" class="fab fa-youtube"></i>
+
+                   
+                </div>
+              </div>
+            </div>
+         </div>
+      </div>
+    </div>
+  </section>
+</footer>
+<script src="js/bootstrap.bundle.js"></script>
+</body>
+</html>
