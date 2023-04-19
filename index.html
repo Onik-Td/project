@@ -1,208 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Onik Td</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <style>
-        .container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-    </style>
-    </head>
-<body>
-<nav class="navbar navbar-expand bg-dark navbar-dark">
-
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pharmacy Management - SETUP</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<script src="bootstrap/js/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="images/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/validateForm.js"></script>
+    <script src="js/index.js"></script>
+    <script> isSetupDone(); </script>
+  </head>
+  <body style="background-image: url('images/cap.jpg');">
     <div class="container">
-        <a href="" class="navbar-brand">Onik Td</a>
-        
-        <ul class="navbar-nav mx-auto">
-            <li><a href="home.html" class="nav-link">Home</a></li>
-            <li><a href="index.html" class="nav-link">About</a></li>
-            <li class="dropdown">
-                <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Garments</a>
-                <ul class="dropdown-menu">
-                    <li><a href="merchandising.html" class="dropdown-item">Merchandising</a></li>
-                    <li><a href="cad.html" class="dropdown-item">CAD</a></li>
-                    <li><a href="Sample.html" class="dropdown-item">Sample</a></li>
-                    <li><a href="Store.html" class="dropdown-item">Store</a></li>
-                    <li><a href="Production Planning.html" class="dropdown-item">Production Planning</a></li>
-                    <li><a href="Cutting.html" class="dropdown-item">Cutting</a></li>
-                    <li><a href="Sewing.html" class="dropdown-item">Sewing</a></li>
-                    <li><a href="Wash.html" class="dropdown-item">Wash</a></li>
-                    <li><a href="Finishing.html" class="dropdown-item">Finishing</a></li>
-                </ul>
-            </li>
-            <li><a href="contact_page.php" class="nav-link">Contact</a></li>
-            <li><a href="career_page.php" class="nav-link">Career</a></li>
-            <li><a href="login.html" class="nav-link">Login</a></li>
-            
-        </ul>
-        
-        <!-- clock start -->
-        <canvas id="canvas" width="100" height="100"
-        style="background-color:#222121">
-        </canvas>
-        
-        <script>
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        var radius = canvas.height / 2;
-        ctx.translate(radius, radius);
-        radius = radius * 0.90
-        setInterval(drawClock, 1000);
-        
-        function drawClock() {
-          drawFace(ctx, radius);
-          drawNumbers(ctx, radius);
-          drawTime(ctx, radius);
-        }
-        
-        function drawFace(ctx, radius) {
-          var grad;
-          ctx.beginPath();
-          ctx.arc(0, 0, radius, 0, 2*Math.PI);
-          ctx.fillStyle = 'white';
-          ctx.fill();
-          grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
-          grad.addColorStop(0, '#333');
-          grad.addColorStop(0.5, 'white');
-          grad.addColorStop(1, '#333');
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = radius*0.1;
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
-          ctx.fillStyle = '#333';
-          ctx.fill();
-        }
-        
-        function drawNumbers(ctx, radius) {
-          var ang;
-          var num;
-          ctx.font = radius*0.15 + "px arial";
-          ctx.textBaseline="middle";
-          ctx.textAlign="center";
-          for(num = 1; num < 13; num++){
-            ang = num * Math.PI / 6;
-            ctx.rotate(ang);
-            ctx.translate(0, -radius*0.85);
-            ctx.rotate(-ang);
-            ctx.fillText(num.toString(), 0, 0);
-            ctx.rotate(ang);
-            ctx.translate(0, radius*0.85);
-            ctx.rotate(-ang);
-          }
-        }
-        
-        function drawTime(ctx, radius){
-            var now = new Date();
-            var hour = now.getHours();
-            var minute = now.getMinutes();
-            var second = now.getSeconds();
-            //hour
-            hour=hour%12;
-            hour=(hour*Math.PI/6)+
-            (minute*Math.PI/(6*60))+
-            (second*Math.PI/(360*60));
-            drawHand(ctx, hour, radius*0.5, radius*0.07);
-            //minute
-            minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-            drawHand(ctx, minute, radius*0.8, radius*0.07);
-            // second
-            second=(second*Math.PI/30);
-            drawHand(ctx, second, radius*0.9, radius*0.02);
-        }
-        
-        function drawHand(ctx, pos, length, width) {
-            ctx.beginPath();
-            ctx.lineWidth = width;
-            ctx.lineCap = "round";
-            ctx.moveTo(0,0);
-            ctx.rotate(pos);
-            ctx.lineTo(0, -length);
-            ctx.stroke();
-            ctx.rotate(-pos);
-        }
-        </script>
-        
-<!-- clock end -->
+      <div class="card m-auto p-2">
+        <div class="card-body">
+          <form name="login-form" class="login-form" action="login.php" method="post" onsubmit="return validateAndSetup();">
+            <div class="logo">
+              <h1 class="logo-caption font-weight-bolder"><span class="tweak">P</span>harmacy <span class="tweak">M</span>anagement</h1>
+        			<h2 class="logo-caption font-weight-bolder"><span class="tweak">O</span>ne <span class="tweak">T</span>ime <span class="tweak">S</span>etup</h2>
+              <p class="h5 text-center text-light">Enter necessary pharmacy details<p>
+        		</div> <!-- logo class -->
 
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-plus-square text-white"></i></span>
+              </div>
+              <input id="pharmacy_name" type="text" class="form-control" placeholder="pharmacy name" onkeyup="validateName(this.value, 'pharmacy_name_error');" >
+            </div> <!--input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="pharmacy_name_error" style="display: none;"></code>
 
-<body onload="initClock()">
-  <!--digital clock start-->
-  <div class="datetime">
-     <div class="time">
-      <span id="hour">00</span>:
-      <span id="minutes">00</span>:
-      <span id="seconds">00</span>
-      <span id="period">AM</span>
-    </div> 
-    <div class="date">
-      <span id="dayname">Day</span>,
-      <span id="month">Month</span>
-      <span id="daynum">00</span>,
-      <span id="year">Year</span>
-    </div>
-  </div>
-  <!--digital clock end-->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-address-card text-white"></i></span>
+              </div>
+              <textarea id="address" class="form-control" placeholder="address" onkeyup="validateAddress(this.value, 'address_error');" style="max-height: 100px;" ></textarea>
+            </div> <!-- input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="address_error" style="display: none;"></code>
 
-  <script type="text/javascript">
-  function updateClock(){
-    var now = new Date();
-    var dname = now.getDay(),
-        mo = now.getMonth(),
-        dnum = now.getDate(),
-        yr = now.getFullYear(),
-        hou = now.getHours(),
-        min = now.getMinutes(),
-        sec = now.getSeconds(),
-        pe = "AM";
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-envelope text-white"></i></span>
+              </div>
+              <input id="email" type="email" class="form-control" placeholder="email" >
+            </div> <!--input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="email_error" style="display: none;"></code>
 
-        if(hou >= 12){
-          pe = "PM";
-        }
-        if(hou == 0){
-          hou = 12;
-        }
-        if(hou > 12){
-          hou = hou - 12;
-        }
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-mobile-alt text-white"></i></span>
+              </div>
+              <input id="contact_number" type="number" class="form-control" placeholder="contact number" onkeyup="validateContactNumber(this.value, 'contact_number_error');" >
+            </div> <!-- input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="contact_number_error" style="display: none;"></code>
+            <!--
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user-circle text-white"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="select profile image" onclick="document.getElementById('profile_image').click();" id="profile_name">
+              &emsp;<p class="m-auto text-light">Optional</p>
+              <input id="profile_image" type="file" accept="image/*" class="form-control" style="display: none;" onchange="document.getElementById('profile_name').value = this.value.split('\\').pop()">
+            </div> <!-- input-group class
+            -->
 
-        Number.prototype.pad = function(digits){
-          for(var n = this.toString(); n.length < digits; n = 0 + n);
-          return n;
-        }
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user text-white"></i></span>
+              </div>
+              <input id="username" type="text" class="form-control" placeholder="enter username" onblur="notNull(this.value, 'username_error');" >
+            </div> <!--input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="username_error" style="display: none;"></code>
 
-        var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
-        var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
-        var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-        for(var i = 0; i < ids.length; i++)
-        document.getElementById(ids[i]).firstChild.nodeValue = values[i];
-  }
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-lock text-white"></i></span>
+              </div>
+              <input id="password" type="text" class="form-control" placeholder="enter password">
+            </div> <!-- input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="password_error" style="display: none;"></code>
 
-  function initClock(){
-    updateClock();
-    window.setInterval("updateClock()", 1);
-  }
-  </script>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key text-white"></i></span>
+              </div>
+              <input id="confirm_password" type="password" class="form-control" placeholder="confirm password">
+            </div> <!-- input-group class -->
+            <code class="text-light small font-weight-bold float-right mb-2" id="confirm_password_error" style="display: none;"></code>
 
-<!--  -->
-
-    </div>
-
-    </div>
-</nav>
-<!-- <h1 class="text-center "></h1> -->
-<section id="image">
-    <img src="Image/money.jpg" alt="" width="100%" height="600">
-        <!-- <img src="Image/rmg.jpeg" alt="" width="100%" height="600"> -->
-    
-</section>
-<script src="js/bootstrap.bundle.js"></script>
-</body>
+            <div class="form-group">
+              <button class="btn btn-default btn-block btn-custom">START</button>
+            </div>
+          </form><!-- form close -->
+        </div> <!-- cord-body class -->
+      </div> <!-- card class -->
+    </div> <!-- container class -->
+  </body>
 </html>
